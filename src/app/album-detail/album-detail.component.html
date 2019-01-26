@@ -1,0 +1,63 @@
+<p-panel>
+  <p-header>
+    Dettaglio Album
+  </p-header>
+  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-2">
+        Titolo:
+      </div>
+      <div class="ui-grid-col-6">
+        <span>{{ album.titolo }}</span>
+      </div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-2">
+        Artista:
+      </div>
+      <div class="ui-grid-col-6">
+        <span>{{ album.artista }}</span>
+      </div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-2">
+        Anno:
+      </div>
+      <div class="ui-grid-col-6">
+        <span>{{ album.anno }}</span>
+      </div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-2">
+        Note:
+      </div>
+      <div class="ui-grid-col-6">
+        <span>{{ album.note }}</span>
+      </div>
+      <div class="ui-grid-col-4"></div>
+    </div>
+  </div>
+  <p-footer>
+    <button pButton type="button" class="ui-button-info" label="Torna alla lista" icon="fas fa-hand-point-left" (click)="goToAlbums()" style="margin-right: .25em"></button>
+    <button pButton type="button" class="ui-button-danger" label="Elimina" icon="fas fa-trash" (click)="deleteAlbum(album.id)"></button>
+  </p-footer>
+</p-panel>
+<!--
+<div class="container">
+  <h1>{{ album.titolo }}</h1>
+  <dl class="list">
+    <dt>Artista</dt>
+    <dd>{{ album.artista }}</dd>
+    <dt>Anno</dt>
+    <dd>{{ album.anno }}</dd>
+    <dt>Note</dt>
+    <dl>{{ album.note }}</dl>
+  </dl>
+  <div class="row">
+    <div class="col-md-12">
+      <a [routerLink]="['/edit-album', album.id]" class="btn btn-success">Modifica</a>
+      <button class="btn btn-danger" type="button" (click)="deleteAlbum(album.id)">Elimina</button>
+    </div>
+  </div>
+</div>
+-->

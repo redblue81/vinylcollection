@@ -1,0 +1,101 @@
+<p-panel>
+  <p-header>
+    Nuovo Album
+  </p-header>
+  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-2">
+        Titolo:
+      </div>
+      <div class="ui-grid-col-6">
+        <input type="text" pInputText placeholder="Titolo" [(ngModel)]="album.titolo" name="titolo"/>
+      </div>
+      <div class="ui-grid-col-4">
+        <p-message severity="error" text="Il titolo è obbligatorio" *ngIf="album.titolo !== undefined ? validateText(album.titolo) : false"></p-message>
+      </div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-2">
+        Artista:
+      </div>
+      <div class="ui-grid-col-6">
+        <input type="text" pInputText placeholder="Artista" [(ngModel)]="album.artista" name="artista" />
+      </div>
+      <div class="ui-grid-col-4">
+        <p-message severity="error" text="L'artista è obbligatorio" *ngIf="album.artista !== undefined ? validateText(album.artista) : false"></p-message>
+      </div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-2">
+        Anno:
+      </div>
+      <div class="ui-grid-col-6">
+        <input type="text" pInputText placeholder="Anno" [(ngModel)]="album.anno" name="anno" />
+      </div>
+      <div class="ui-grid-col-4">
+        <p-message severity="error" text="Formato errato" *ngIf="validateYear(album.anno)"></p-message>
+      </div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-2">
+        Note:
+      </div>
+      <div class="ui-grid-col-6">
+        <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" [(ngModel)]="album.note" name="note"></textarea>
+      </div>
+      <div class="ui-grid-col-4"></div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-2">
+        Immagine:
+      </div>
+      <div class="ui-grid-col-6">
+        <!-- <p-fileUpload name="images[]" customUpload="true" (uploadHandler)="uploadFile($event)" (onUpload)="onUploadComplete($event)" -->
+        <p-fileUpload name="images[]" url="http://localhost:8080/vinylcollection/api/images/upload-multiple-images" (onUpload)="onUploadComplete($event)"
+         multiple="multiple" accept="image/*" maxFileSize="6000000">
+            <ng-template pTemplate="content">
+                <ul *ngIf="uploadedFiles.length">
+                    <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                </ul>
+            </ng-template>
+        </p-fileUpload>
+      </div>
+      <div class="ui-grid-col-4"></div>
+    </div>
+  </div>
+  <p-footer>
+    <button pButton type="button" [disabled]="!album.titolo || !album.artista || !album.anno || validateYear(album.anno)" class="ui-button-success" label="Salva" icon="far fa-save" (click)="saveAlbum()"></button>
+  </p-footer>
+</p-panel>
+<!--
+<h3 class="first">Nuovo Album</h3>
+<p-panel header="Validate">
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+          <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+      <input type="text" pInputText placeholder="Titolo" [(ngModel)]="album.titolo" name="titolo" />
+    </div>
+  </div>
+  <div class="ui-g-12 ui-md-12">
+    <div class="ui-inputgroup">
+      <span class="ui-inputgroup-addon">Artista</span>
+      <input type="text" pInputText placeholder="Artista" [(ngModel)]="album.artista" name="artista" />
+    </div>
+  </div>
+  <div class="ui-g-12 ui-md-12">
+    <div class="ui-inputgroup">
+      <span class="ui-inputgroup-addon">Anno</span>
+      <input type="text" pInputText placeholder="Anno" [(ngModel)]="album.anno" name="anno" />
+    </div>
+  </div>
+  <div class="ui-g-12 ui-md-12">
+    <div class="ui-inputgroup">
+      <span class="ui-inputgroup-addon">Note</span>
+      <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" [(ngModel)]="album.note" name="note"></textarea>
+    </div>
+  </div>
+  <div class="ui-g-12 ui-md-2">
+    <button pButton type="button" class="ui-button-success" label="Salva" icon="far fa-save" (click)="saveAlbum()"></button>
+  </div>
+</div>
+-->

@@ -1,0 +1,88 @@
+<p-dataView #dv [value]="albums" [paginator]="true" [rows]="5" paginatorPosition="both" filterBy="titolo,artista"
+    [sortField]="sortField" [sortOrder]="sortOrder">
+    <p-header>
+        <div class="ui-helper-clearfix">
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-4">
+                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordina per" (onChange)="onSortChange($event)" [autoWidth]="false" [style]="{'min-width':'15em'}"></p-dropdown>
+                </div>
+                <div class="ui-g-4 ui-md-4 filter-container">
+                  <div style="position:relative">
+                      <input type="search" pInputText placeholder="Ricerca titolo / artista" (keyup)="dv.filter($event.target.value)">
+                  </div>
+                </div>
+                <!--
+                <div class="ui-g-4 ui-md-4 filter-container">
+                  <div style="position:relative">
+                      <input type="search" pInputText placeholder="Ricerca artista" (keyup)="dv.filter($event.target.value, 'artista', 'contains')" [value]="dv.filter['artista'] ? dv.filter['artista'].value : ''">
+                  </div>
+                </div>
+                -->
+                <div class="ui-g-4 ui-md-4" style="text-align:right">
+                    <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                </div>
+            </div>
+        </div>
+    </p-header>
+    <ng-template let-album pTemplate="listItem">
+        <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
+            <div class="ui-g-12 ui-md-3" style="text-align:center">
+                <img class="ui-g-4" src="{{ getImmagine(album) }}">
+            </div>
+            <div class="ui-g-12 ui-md-8 car-details">
+                <div class="ui-g">
+                    <div class="ui-g-2 ui-sm-6">Titolo: </div>
+                    <div class="ui-g-10 ui-sm-6"><b>{{album.titolo}}</b></div>
+
+                    <div class="ui-g-2 ui-sm-6">Anno: </div>
+                    <div class="ui-g-10 ui-sm-6"><b>{{album.anno}}</b></div>
+
+                    <div class="ui-g-2 ui-sm-6">Artista: </div>
+                    <div class="ui-g-10 ui-sm-6"><b>{{album.artista}}</b></div>
+<!--
+                    <div class="ui-g-2 ui-sm-6">Color: </div>
+                    <div class="ui-g-10 ui-sm-6"><b>{{car.color}}</b></div>
+-->
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-1 search-icon">
+                <button pButton type="button" icon="fas fa-search" (click)="selectAlbum($event, album)"></button>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template let-album pTemplate="gridItem">
+        <div style="padding:.5em" class="ui-g-12 ui-md-3">
+            <p-panel [header]="album.titolo" [style]="{'text-align':'center'}">
+                <!-- <img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60"> -->
+                <img src="assets/vinile.png" width="60">
+                <div class="album-detail">{{album.anno}} - {{album.artista}}</div>
+                <hr class="ui-widget-content" style="border-top:0">
+                <button pButton type="button" icon="fas fa-search" (click)="selectAlbum($event, album)" style="margin-top:0"></button>
+            </p-panel>
+        </div>
+    </ng-template>
+</p-dataView>
+
+<p-dialog header="Dettaglio Album" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width="325" (onAfterHide)="onDialogHide()">
+    <div class="ui-g" *ngIf="selectedAlbum">
+        <div class="ui-g-12" style="text-align:center">
+            <!--<img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png">-->
+            <img src="assets/vinile.png" width="60">
+        </div>
+        <div class="ui-g-4">Titolo: </div>
+        <div class="ui-g-8">{{selectedAlbum.titolo}}</div>
+
+        <div class="ui-g-4">Artista: </div>
+        <div class="ui-g-8">{{selectedAlbum.artista}}</div>
+
+        <div class="ui-g-4">Anno: </div>
+        <div class="ui-g-8">{{selectedAlbum.anno}}</div>
+
+        <div class="ui-g-4">Note: </div>
+        <div class="ui-g-8">{{selectedAlbum.note}}</div>
+
+        <div class="ui-g-12" style="text-align:center">
+          <button pButton type="button" label="Modifica" icon="fa fa-edit" (click)="modificaAlbum(selectedAlbum.id)" style="margin-top:0"></button>
+        </div>
+    </div>
+</p-dialog>
