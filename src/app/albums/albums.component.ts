@@ -20,6 +20,7 @@ export class AlbumsComponent implements OnInit {
   sortKey: string;
   sortField: string;
   sortOrder: number;
+  imageBlobUrl: string | null = null;
 
   constructor(private service: AlbumService, private router: Router, private messageService: MessageService,
     private sanitizer: DomSanitizer) { }
@@ -73,26 +74,12 @@ export class AlbumsComponent implements OnInit {
     this.router.navigate(['/edit-album', id]);
   }
 
-  getImmagine(album) {
-    let imageUrl;
-    if (album.immagini !== undefined && album.immagini.length > 0) {
-      const blob = new Blob([new Uint8Array(album.immagini[0])]);
-      console.log(blob);
-      const reader = new FileReader();
-      let base64data: any;
+  createImageFromBlob(image: any) {
+    const reader = new FileReader();
+    const blob = new Blob([new TextEncoder().encode(image.data)], {type: 'image/*'});
+    if (blob) {
       reader.readAsDataURL(blob);
-      reader.onloadend = function() {
-        base64data = reader.result;
-         console.log(base64data);
-      };
-      // imageUrl = URL.createObjectURL(blob);
-      imageUrl = this.sanitizer.bypassSecurityTrustUrl(base64data);
     }
-    console.log(imageUrl);
-    if (imageUrl === undefined) {
-      imageUrl = 'assets/vinile.png';
-    }
-    return imageUrl;
   }
 
 }
