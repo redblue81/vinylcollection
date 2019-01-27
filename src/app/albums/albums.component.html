@@ -27,7 +27,7 @@
     <ng-template let-album pTemplate="listItem">
         <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
             <div class="ui-g-12 ui-md-3" style="text-align:center">
-                <img class="ui-g-4" src="{{ album.immagini[0] !== undefined ? createImageFromBlob(album.immagini[0]) : 'assets/vinile.png' }}">
+                <img class="ui-g-4" src="{{album.immagini[0] !== undefined ? 'data:image/png;base64,' + album.immagini[0].data : 'assets/vinile.png' }}">
             </div>
             <div class="ui-g-12 ui-md-8 car-details">
                 <div class="ui-g">
@@ -54,7 +54,7 @@
         <div style="padding:.5em" class="ui-g-12 ui-md-3">
             <p-panel [header]="album.titolo" [style]="{'text-align':'center'}">
                 <!-- <img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60"> -->
-                <img src="assets/vinile.png" width="60">
+                <img src="{{album.immagini[0] !== undefined ? 'data:image/png;base64,' + album.immagini[0].data : 'assets/vinile.png' }}" width="60">
                 <div class="album-detail">{{album.anno}} - {{album.artista}}</div>
                 <hr class="ui-widget-content" style="border-top:0">
                 <button pButton type="button" icon="fas fa-search" (click)="selectAlbum($event, album)" style="margin-top:0"></button>
@@ -67,7 +67,7 @@
     <div class="ui-g" *ngIf="selectedAlbum">
         <div class="ui-g-12" style="text-align:center">
             <!--<img src="assets/showcase/images/demo/car/{{selectedCar.brand}}.png">-->
-            <img src="assets/vinile.png" width="60">
+            <img src="{{selectedAlbum.immagini[0] !== undefined ? 'data:image/png;base64,' + selectedAlbum.immagini[0].data : 'assets/vinile.png' }}" width="240">
         </div>
         <div class="ui-g-4">Titolo: </div>
         <div class="ui-g-8">{{selectedAlbum.titolo}}</div>

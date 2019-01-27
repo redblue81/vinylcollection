@@ -78,7 +78,7 @@ export class AlbumsComponent implements OnInit {
     const reader = new FileReader();
     const blob = new Blob([new TextEncoder().encode(image.data)], {type: 'image/*'});
     if (blob) {
-      reader.readAsDataURL(blob);
+      return reader.readAsDataURL(blob);
     }
   }
 
