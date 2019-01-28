@@ -74,12 +74,4 @@ export class AlbumsComponent implements OnInit {
     this.router.navigate(['/edit-album', id]);
   }
 
-  createImageFromBlob(image: any) {
-    const reader = new FileReader();
-    const blob = new Blob([new TextEncoder().encode(image.data)], {type: 'image/*'});
-    if (blob) {
-      return reader.readAsDataURL(blob);
-    }
-  }
-
 }

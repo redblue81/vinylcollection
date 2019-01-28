@@ -30,6 +30,7 @@ export class AlbumCreateComponent implements OnInit {
   }
 
   validateYear(year): boolean {
+    return false;
     const regex = '^[0-9]*$';
     if (year === undefined || year.match(regex)) {
       return false;
